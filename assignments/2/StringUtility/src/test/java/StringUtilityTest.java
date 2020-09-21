@@ -29,6 +29,24 @@ public class StringUtilityTest
     }
 
     @Test
+    public void mustReturnabcWhenInputIsAbCAndModeIsLowerCase() {
+        // Arrange
+        var expected = "abc";
+
+        // Act
+        var result = StringUtility.convert("AbC", StringUtility.TO_LOWER);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void mustThrowWhenInputContainsNumber() {
+        // Assert
+        assertThrows(IllegalArgumentException.class, () -> StringUtility.convert("a1bC", StringUtility.TO_LOWER));
+    }
+
+    @Test
     public void mustThrowWhenInputIsNull() {
         assertThrows(IllegalArgumentException.class, () -> StringUtility.convert(null, StringUtility.TO_UPPER));
     }
