@@ -1,9 +1,50 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConverterTest
 {
+    @ParameterizedTest
+    @CsvSource({"1,i", "4,iv", "5,v","9,ix", "10,x"})
+    void mustConvertRomanNumeralFromCsvSource(String input, String expected)
+    {
+        String actual = Converter.convert(Integer.parseInt(input));
+        assertEquals(expected, actual);
+    }
+    
+    @ParameterizedTest
+    @MethodSource("argumentsForRomanConverter")
+    void mustConvertRomanNumeral(int input, String expected)
+    {
+        String actual = Converter.convert(input);
+        assertEquals(expected, actual);
+    }
+
+    // Her er provider metoden for mustConvertRomanNumeral test metoden.
+    private static Stream<Arguments> argumentsForRomanConverter()
+    {
+        return Stream.of(
+            Arguments.of(1, "i"),
+            Arguments.of(4, "iv"),
+            Arguments.of(5, "v"),
+            Arguments.of(9, "ix"),
+            Arguments.of(10, "x"),
+            Arguments.of(40, "xl"),
+            Arguments.of(90, "xc"),
+            Arguments.of(100, "c"),
+            Arguments.of(400, "cd"),
+            Arguments.of(500, "d"),
+            Arguments.of(900, "cm"),
+            Arguments.of(1000, "m")
+        );
+    }
+
     /*@Test
     public void testOneYieldsI()
     {
