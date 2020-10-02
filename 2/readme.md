@@ -36,3 +36,41 @@
   If instead, a Mock or Spy was made of the component that had the <code>fireMissile()</code> method, the McDonnel Douglas software engineers could have evaluated the number of times, this method or the <code>checkForInsertedKey()</code>-method was called.
 
   This way they could have determined that firing a missile that was automatically selected by the system, would not call either the right <code>fireMissile()</code>-method or the <code>checkForInsertedKey()</code>.
+
+## Investigation of tools
+
+- ### JUnit 5
+
+  Investigate JUnit 5 (Jupiter).
+
+  Explain the following, and how they are useful:
+
+  - <code>@Tag</code>
+    _- adds a tag so tests can easily by filtered upon test execution to include some tests and exclude others._
+  - <code>@Disabled</code>
+    _- disables a test._
+  - <code>@RepeatedTest</code>
+    _- repeats a test the specified number of times._
+  - <code>@BeforeEach, @AfterEach</code>
+    _- method is executed once before and after each test respectively._
+  - <code>@BeforeAll, @AfterAll</code>
+    _- method is executed once before and after all tests respectively.
+    <br>
+    <font color="green">**Note:**</font> the methods must be static._
+  - <code>@DisplayName</code>
+    _- Sets a custom display name for the method to be used in test reporting._
+  - <code>@Nested</code>
+    _- is a way of grouping related tests in a nested test class within an outer test class instead of making the outer test class bloated.<br><font color="red">**Caution:**</font> Java does not allow static methods in inner classes. Circumvent by adding <code>@TestInstance(Lifecycle.PER_CLASS)</code> to any nested test class._
+  - <code>assumeFalse, assumeTrue</code>
+    _- If assumptions (preconditions) are not met, the test will not run._
+
+- ### Mocking frameworks
+
+##### https://www.baeldung.com/mockito-vs-easymock-vs-jmockit
+
+I read the above comparison of Mockito, EasyMock and jMockit.
+
+They all seem to have many similarities and follow the same pattern - more or less - of record-replay-verify, i.e.: record what should happen if some operation is carried out and verify that it indeed happened.
+
+Some may favour one flavour over another. As I am not a seasoned tester, I can't yet tell when to prefer one mocking framework over the next.<br>
+So in short, having seen Mockito in class, I would prefer to go with Mockito.
