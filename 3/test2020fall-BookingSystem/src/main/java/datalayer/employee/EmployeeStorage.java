@@ -2,6 +2,6 @@ package datalayer.employee;
 
 public interface EmployeeStorage
 {
-    int createEmployee(Employee employee);
+    int createEmployee(EmployeeCreation employeeToCreate);
     Collection<Employee> getEmployeeWithId(int employeeId);
 }

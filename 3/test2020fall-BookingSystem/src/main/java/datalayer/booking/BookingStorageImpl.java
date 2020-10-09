@@ -3,7 +3,7 @@ package datalayer.booking;
 public class BookingStorageImpl implements BookingStorage
 {
     @Override
-    public int createBooking(Booking booking) {
+    public int createBooking(BookingCreation bookingToCreate) {
         return 0;
     }
 

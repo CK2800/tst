@@ -2,9 +2,8 @@ package datalayer.employee;
 
 public class EmployeeStorageImpl implements EmployeeStorage
 {
-
     @Override
-    public int createEmployee(Employee employee) {
+    public int createEmployee(EmployeeCreation employeeToCreate) {
         return 0;
     }
 
