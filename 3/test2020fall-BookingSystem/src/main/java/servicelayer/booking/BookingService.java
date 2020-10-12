@@ -1,7 +1,10 @@
 package servicelayer.booking;
 
+import dto.Booking;
+
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Collection;
 
 public interface BookingService
 {

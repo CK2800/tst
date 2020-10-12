@@ -1,10 +1,12 @@
 package servicelayer.booking;
 
+import dto.Booking;
+
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Collection;
 
-public class BookingServiceImpl extends BookingService
-{
+public class BookingServiceImpl implements BookingService {
     @Override
     public int createBooking(int customerId, int employeeId, Date date, Time start, Time end) {
         return 0;
