@@ -1,5 +1,7 @@
 package servicelayer.employee;
 
+import dto.Employee;
+
 import java.util.Date;
 
 public class EmployeeServiceImpl implements EmployeeService
