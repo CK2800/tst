@@ -1,5 +1,6 @@
 package integration.datalayer.customer;
 
+import Constants.Constants;
 import com.github.javafaker.Faker;
 import datalayer.customer.CustomerStorage;
 import datalayer.customer.CustomerStorageImpl;
@@ -22,19 +23,17 @@ class CreateCustomerTest {
 
     @BeforeAll
     public void Setup() throws SQLException {
-        var url = "jdbc:mysql://localhost:3307/";
-        var db = "DemoApplicationTest";
 
         Flyway flyway = new Flyway(new FluentConfiguration()
-                .defaultSchema(db)
+                .defaultSchema(Constants.DB)
                 .createSchemas(true)
-                .schemas(db)
+                .schemas(Constants.DB)
                 .target("2")
-                .dataSource(url, "root", "testuser123"));
+                .dataSource(Constants.URL, "root", "testuser123"));
 
         flyway.migrate();
 
-        customerStorage = new CustomerStorageImpl(url+db, "root", "testuser123");
+        customerStorage = new CustomerStorageImpl(Constants.URL+Constants.DB, "root", "testuser123");
 
         var numCustomers = customerStorage.getCustomers().size();
         if (numCustomers < 100) {
