@@ -1,3 +1,6 @@
+package converter;
+
+import converter.Converter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -51,7 +54,7 @@ public class ConverterTest
         // arrange
         String expected = "i";
         // act
-        String actual = Converter.convert(1);
+        String actual = converter.Converter.convert(1);
         // assert
         assertEquals(expected, actual);
     }
@@ -62,7 +65,7 @@ public class ConverterTest
         // arrange
         String expected = "ii";
         // act
-        String actual = Converter.convert(2);
+        String actual = converter.Converter.convert(2);
         // assert
         assertEquals(expected,actual);
     }
@@ -73,7 +76,7 @@ public class ConverterTest
         // arrange
         String expected = "iii";
         // act
-        String actual = Converter.convert(3);
+        String actual = converter.Converter.convert(3);
         // assert
         assertEquals(expected, actual);
     }
@@ -84,7 +87,7 @@ public class ConverterTest
         // arrange
         String expected = "iv";
         // act
-        String actual = Converter.convert(4);
+        String actual = converter.Converter.convert(4);
         // assert
         assertEquals(expected, actual);
     }
@@ -95,7 +98,7 @@ public class ConverterTest
         // arrange
         String expected = "v";
         // act
-        String actual = Converter.convert(5);
+        String actual = converter.Converter.convert(5);
         // assert
         assertEquals(expected, actual);
     }
@@ -106,7 +109,7 @@ public class ConverterTest
         // arrange
         String expected = "vi";
         // act
-        String actual = Converter.convert(6);
+        String actual = converter.Converter.convert(6);
         // assert
         assertEquals(expected, actual);
     }
@@ -177,7 +180,20 @@ public class ConverterTest
     @Test
     public void testLowerLimitExceededYieldsException()
     {
-        assertThrows(IllegalArgumentException.class, () -> { Converter.convert(-5);});
+        assertThrows(IllegalArgumentException.class, () -> { Converter.convert(0);});
+    }
+
+
+    @Test
+    public void testSixtyYieldsLX() {
+        // Arrange
+        String expected = "lx" ;
+
+        // Act
+        String actual = Converter.convert(60);
+
+        // Assert
+        assertEquals(expected, actual);
     }
 
 

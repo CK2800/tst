@@ -11,7 +11,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -20,6 +20,27 @@
         <maven.compiler.target>1.11</maven.compiler.target>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.5.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.12</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <testPlugin>junit5</testPlugin>
+                    <targetClasses>converter.*</targetClasses>
+                    <targetTests>converter.*</targetTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

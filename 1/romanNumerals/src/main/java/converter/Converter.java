@@ -1,3 +1,5 @@
+package converter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class Converter
 */
     public static String convert(int number) throws IllegalArgumentException
     {
-        if (number <= 0 || number > 3999)
+        if (number < 1 || number > 3999)
             throw new IllegalArgumentException("Number must be in the range from 1 to 3999 incl.");
         StringBuilder result = new StringBuilder();
         result.append(convert(thousands(number), 1000));
