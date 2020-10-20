@@ -1,4 +1,4 @@
-#Booking system.
+<h1>Booking system.</h1>
 <h2>Requirements:</h2>
 A running mysql server exposed at port 3307.
 <br>Root password must be testuser123
