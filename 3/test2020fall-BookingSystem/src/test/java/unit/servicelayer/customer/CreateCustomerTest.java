@@ -1,6 +1,7 @@
 package unit.servicelayer.customer;
 
 import datalayer.customer.CustomerStorage;
+import dto.CustomerCreation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -49,4 +50,26 @@ public class CreateCustomerTest {
                         argThat(x -> x.firstname.equals(firstName) &&
                                 x.lastname.equals(lastName)));
     }
+
+    @Test
+    public void mustCallStorageWhenCreatingCustomerWithPhone() throws CustomerServiceException, SQLException {
+        // Arrange
+        // Act
+        var firstName = "a";
+        var lastName = "b";
+        var birthdate = new Date(123456789l);
+        var phoneNo = "555-HOMER";
+        customerService.createCustomer(firstName, lastName, birthdate, phoneNo);
+
+        // Assert
+        // Can be read like: verify that storageMock was called 1 time on the method
+        //   'createCustomer' with an argument whose 'firstname' == firstName and
+        //   whose 'lastname' == lastName
+        verify(storageMock, times(1))
+                .createCustomer(
+                        argThat(x -> x.firstname.equals(firstName) &&
+                                x.lastname.equals(lastName) &&
+                                x.phoneno.equals(phoneNo)));
+    }
+
 }

@@ -16,6 +16,10 @@ public class Employee
         this.birthdate = birthdate;
     }
 
+    public static Employee map(int id, EmployeeCreation ec) {
+        return new Employee(id, ec.getFirstname(), ec.getLastname(), ec.getBirthdate());
+    }
+
     public int getId() {
         return id;
     }

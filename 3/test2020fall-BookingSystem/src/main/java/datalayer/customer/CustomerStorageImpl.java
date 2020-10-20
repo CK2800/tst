@@ -23,7 +23,7 @@ public class CustomerStorageImpl implements CustomerStorage {
 
     @Override
     public Customer getCustomerWithId(int customerId) throws SQLException {
-        var sql = "select ID, firstname, lastname, birthdate from Customers where id = ?";
+        var sql = "select ID, firstname, lastname, birthdate, phone from Customers where id = ?";
         try (var con = getConnection();
              var stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, customerId);
@@ -33,7 +33,9 @@ public class CustomerStorageImpl implements CustomerStorage {
                     var id = resultSet.getInt("ID");
                     var firstname = resultSet.getString("firstname");
                     var lastname = resultSet.getString("lastname");
-                    return new Customer(id, firstname, lastname);
+                    var birthdate = resultSet.getDate("birthdate");
+                    var phone = resultSet.getString("phone");
+                    return new Customer(id, firstname, lastname, birthdate, phone);
                 }
                 return null;
             }
@@ -45,14 +47,16 @@ public class CustomerStorageImpl implements CustomerStorage {
              var stmt = con.createStatement()) {
             var results = new ArrayList<Customer>();
 
-            ResultSet resultSet = stmt.executeQuery("select ID, firstname, lastname from Customers");
+            ResultSet resultSet = stmt.executeQuery("select ID, firstname, lastname, birthdate, phone from Customers");
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String firstname = resultSet.getString("firstname");
                 String lastname = resultSet.getString("lastname");
+                Date birthdate = resultSet.getDate("birthdate");
+                String phoneNo = resultSet.getString("phone");
 
-                Customer c = new Customer(id, firstname, lastname);
+                Customer c = new Customer(id, firstname, lastname, birthdate, phoneNo);
                 results.add(c);
             }
 
@@ -61,11 +65,15 @@ public class CustomerStorageImpl implements CustomerStorage {
     }
 
     public int createCustomer(CustomerCreation customerToCreate) throws SQLException {
-        var sql = "insert into Customers(firstname, lastname) values (?, ?)";
+        var sql = "insert into Customers(firstname, lastname, birthdate, phone) values (?, ?, ?, ?)";
         try (var con = getConnection();
             var stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, customerToCreate.getFirstname());
             stmt.setString(2, customerToCreate.getLastname());
+            stmt.setDate(3, (Date) customerToCreate.getBirthdate());
+
+            if(customerToCreate.getPhoneno() != null) stmt.setString(4, customerToCreate.getPhoneno());
+            else stmt.setNull(4, Types.VARCHAR);
 
             stmt.executeUpdate();
 

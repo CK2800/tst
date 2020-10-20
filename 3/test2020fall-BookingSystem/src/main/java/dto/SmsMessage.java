@@ -8,6 +8,8 @@ public class SmsMessage {
      */
     private final String recipient;
     private final String message;
+    private String reason = "";
+    private SmsMessageStatus status = SmsMessageStatus.NONE;
 
     public SmsMessage(String recipient, String message) {
         this.recipient = recipient;
@@ -20,6 +22,22 @@ public class SmsMessage {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public SmsMessageStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SmsMessageStatus status) {
+        this.status = status;
     }
 
     @Override
