@@ -2,10 +2,7 @@ package unit.servicelayer.customer;
 
 import datalayer.customer.CustomerStorage;
 import dto.CustomerCreation;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import servicelayer.customer.CustomerService;
 import servicelayer.customer.CustomerServiceException;
 import servicelayer.customer.CustomerServiceImpl;
@@ -26,8 +23,8 @@ public class CreateCustomerTest {
     private CustomerStorage storageMock;
 
 
-    @BeforeAll
-    public void beforeAll(){
+    @BeforeEach
+    public void beforeEach(){
         storageMock = mock(CustomerStorage.class);
         customerService = new CustomerServiceImpl(storageMock);
     }
@@ -35,10 +32,10 @@ public class CreateCustomerTest {
     @Test
     public void mustCallStorageWhenCreatingCustomer() throws CustomerServiceException, SQLException {
         // Arrange
-        // Act
         var firstName = "a";
         var lastName = "b";
         var birthdate = new Date(123456789l);
+        // Act
         customerService.createCustomer(firstName, lastName, birthdate);
 
         // Assert
@@ -64,12 +61,11 @@ public class CreateCustomerTest {
         // Assert
         // Can be read like: verify that storageMock was called 1 time on the method
         //   'createCustomer' with an argument whose 'firstname' == firstName and
-        //   whose 'lastname' == lastName
+        //   whose 'lastname' == lastName and 'phonono' == phoneno.
         verify(storageMock, times(1))
                 .createCustomer(
                         argThat(x -> x.firstname.equals(firstName) &&
                                 x.lastname.equals(lastName) &&
                                 x.phoneno.equals(phoneNo)));
     }
-
 }
