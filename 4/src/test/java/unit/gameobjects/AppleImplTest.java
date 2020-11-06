@@ -2,60 +2,42 @@ package unit.gameobjects;
 
 import gameobjects.Apple;
 import gameobjects.Snake;
+import gameobjects.impl.AppleImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.mockito.Mock;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AppleTest
+public class AppleImplTest
 {
-    Snake snake;
+    // UUT
     Apple apple;
-    List<Point> points = new ArrayList<Point>(2);
+
+    @Mock
+    Snake snakeMock = mock(Snake.class);
+    List<Point> snakePoints = new ArrayList<Point>(2);
+
     @BeforeAll
     public void setup()
     {
-        points.add(new Point(5,10));
-        points.add(new Point(10,20));
-        snake = new Snake(points);
+        snakePoints.add(new Point(5,10));
+        snakePoints.add(new Point(10,20));
+        when(snakeMock.getPoints()).thenReturn(snakePoints);
     }
 
     @BeforeEach
     public void beforeEach()
     {
-        apple = new Apple(); // apple at (0,0)
-    }
-
-    @Test
-    public void mustReturnTrueIfSnakeCollidesWithApple() {
-        // Arrange
-        var expected = true;
-        apple.move(5,10);
-
-        // Act
-        var result = snake.collidesWith(apple);
-
-        // Assert
-        assertEquals(expected, result);
-    }
-
-    @Test
-    public void mustReturnFalseIfSnakeDoesNotCollideWithApple() {
-        // Arrange
-        var expected = false;
-
-        // Act
-        var result = snake.collidesWith(apple);
-
-        // Assert
-        assertEquals(expected, result);
+        apple = new AppleImpl(); // apple at (0,0)
     }
 
     @Test
@@ -63,8 +45,9 @@ public class AppleTest
         // Arrange
         var expected = true;
         apple.move(5,10);
+
         // Act
-        var result = apple.collidesWith(snake);
+        var result = apple.collidesWith(snakeMock);
 
         // Assert
         assertEquals(expected, result);
@@ -76,7 +59,7 @@ public class AppleTest
         var expected = false;
 
         // Act
-        var result = apple.collidesWith(snake);
+        var result = apple.collidesWith(snakeMock);
 
         // Assert
         assertEquals(expected, result);
