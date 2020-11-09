@@ -44,7 +44,7 @@ public class AppleImplTest
     public void mustReturnTrueIfAppleCollidesWithSnake() {
         // Arrange
         var expected = true;
-        apple.move(5,10);
+        apple.moveTo(5,10);
 
         // Act
         var result = apple.collidesWith(snakeMock);

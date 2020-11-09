@@ -1,10 +1,12 @@
 package gameobjects;
 
+import gameobjects.impl.Drawable;
+
 import java.awt.*;
 
-public interface Apple extends Collidable
+public interface Apple extends Collidable, Drawable
 {
-    void move(int x, int y);
+    void moveTo(int x, int y);
 
     void moveTo(Point p);
 }

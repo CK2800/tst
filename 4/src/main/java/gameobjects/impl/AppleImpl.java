@@ -15,9 +15,10 @@ public class AppleImpl implements Apple
     @Override
     public boolean collidesWith(Collidable other)
     {
-        for(int i = 0; i < other.getPoints().size(); i++)
+        List<Point> otherPoints = other.getPoints();
+        for(int i = 0; i < otherPoints.size(); i++)
         {
-            if (other.getPoints().get(i).equals(point))
+            if (otherPoints.get(i).equals(point))
                 return true;
         }
         return false;
@@ -33,7 +34,7 @@ public class AppleImpl implements Apple
     }
 
     @Override
-    public void move(int x, int y)
+    public void moveTo(int x, int y)
     {
         point.move(x, y);
     }
@@ -43,5 +44,12 @@ public class AppleImpl implements Apple
     {
         point.x = p.x;
         point.y = p.y;
+    }
+
+    @Override
+    public void draw(Graphics g, int width, int height)
+    {
+        g.setColor(Color.red);
+        g.fillOval(this.point.x, this.point.y, width, height);
     }
 }

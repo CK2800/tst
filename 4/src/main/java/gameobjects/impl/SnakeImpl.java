@@ -5,6 +5,7 @@ import gameobjects.Snake;
 import gameobjects.constants.Direction;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static gameobjects.constants.Direction.*;
@@ -17,13 +18,11 @@ public class SnakeImpl implements Snake
     public SnakeImpl(List<Point> points)
     {
         if (points == null || points.size() == 0) throw new IllegalArgumentException("points is empty."); // IAE unchecked
-        this.points = points;
-    }
+        this.points = new ArrayList<Point>();
 
-    @Override
-    public boolean hasCollidedWithBody()
-    {
-        return collidesWith(this);
+        // copy the supplied Point in this list.
+        for(Point point : points)
+            this.points.add(new Point(point.x, point.y));
     }
 
     @Override
@@ -47,13 +46,19 @@ public class SnakeImpl implements Snake
         Point head = points.get(0);
         int i = (this == other) ? 1 : 0;
 
-        for(; i < other.getPoints().size(); i++)
-            if (other.getPoints().get(i).equals(head))
+        List<Point> otherPoints = other.getPoints();
+
+        for(; i < otherPoints.size(); i++)
+            if (otherPoints.get(i).equals(head))
                 return true;
 
         return false;
     }
 
+    /**
+     * Returns an immutable copy of the current list of points.
+     * @return
+     */
     @Override
     public List<Point> getPoints()
     {
@@ -88,6 +93,8 @@ public class SnakeImpl implements Snake
             case RIGHT:
                 head.y += pixels;
                 break;
+            case NONE:
+                break;
             default:
                 throw new IllegalArgumentException("The supplied Direction is not supported.");
         }
@@ -102,6 +109,16 @@ public class SnakeImpl implements Snake
         for(int i = points.size() - 1; i > 0; i--)
         {
             points.set(i, points.get(i-1));
+        }
+    }
+
+    @Override
+    public void draw(Graphics g, int width, int height)
+    {
+        g.setColor(Color.green);
+        for(Point point : points)
+        {
+            g.fillRect(point.x, point.y, width,height);
         }
     }
 }
