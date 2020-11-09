@@ -85,8 +85,8 @@ public class CreateBookingTest {
         bookingService.createBooking(customerId, employeeId,date, start, end);
 
         // Assert
-        // Can be read like: verify that storageMock was called 1 time on the method
-        //   'createCustomer' with an argument of type SmsMessage with a phone no of "555-HOMER".
+        // Can be read like: verify that smsMock was called 1 time on the method
+        // 'sendSms' with an argument of type SmsMessage with a phone no of "555-HOMER".
 
         verify(smsMock, times(1))
                 .sendSms(argThat(x -> x.getRecipient().equals("555-HOMER")));

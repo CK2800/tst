@@ -9,7 +9,7 @@ A running mysql server exposed at port 3307.
 
 - Clone this repo.
 - Install Docker.
-- Run this command to set up mysql in a Docker container: \
+- Run this command to set up mysql in a Docker container with a database named mysql-test-db: \
   <code>docker run -d --rm \
   --name mysql-test-db \
   -e MYSQL_ROOT_PASSWORD=testuser123 \
@@ -20,6 +20,6 @@ A running mysql server exposed at port 3307.
 
 - Booking-, employee- and customer creation have been tested at unit and integration level.
 - Invocation of SmsService in accordance with the specified requirements has been tested at unit level.
-- If a SmsMessage cannot be sent due to missing or incomplete phone number, the SmsMessage status field is updated accordingly. The value of this field is also tested against.
+
 
 Enjoy!
