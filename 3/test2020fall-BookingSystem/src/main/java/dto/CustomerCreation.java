@@ -3,7 +3,7 @@ package dto;
 import java.util.Date;
 
 public class CustomerCreation {
-    public String phoneno;
+    private String phoneno;
 
     public String getFirstname() {
         return firstname;
@@ -21,9 +21,9 @@ public class CustomerCreation {
         return birthdate;
     }
 
-    public final String firstname, lastname;
+    private final String firstname, lastname;
 
-    public final Date birthdate;
+    private final Date birthdate;
 
     public CustomerCreation(String firstname, String lastname, Date birthdate) {
         this.firstname = firstname;

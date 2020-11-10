@@ -44,8 +44,8 @@ public class CreateCustomerTest {
         //   whose 'lastname' == lastName
         verify(storageMock, times(1))
                 .createCustomer(
-                        argThat(x -> x.firstname.equals(firstName) &&
-                                x.lastname.equals(lastName)));
+                        argThat(x -> x.getFirstname().equals(firstName) &&
+                                x.getLastname().equals(lastName)));
     }
 
     @Test
@@ -64,8 +64,8 @@ public class CreateCustomerTest {
         //   whose 'lastname' == lastName and 'phonono' == phoneno.
         verify(storageMock, times(1))
                 .createCustomer(
-                        argThat(x -> x.firstname.equals(firstName) &&
-                                x.lastname.equals(lastName) &&
-                                x.phoneno.equals(phoneNo)));
+                        argThat(x -> x.getFirstname().equals(firstName) &&
+                                x.getLastname().equals(lastName) &&
+                                x.getPhoneno().equals(phoneNo)));
     }
 }

@@ -5,6 +5,7 @@ import com.github.javafaker.Faker;
 import datalayer.customer.CustomerStorage;
 import datalayer.customer.CustomerStorageImpl;
 import dto.CustomerCreation;
+import integration.DockerContainerTest;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,22 +20,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Tag("integration")
-class CreateCustomerTest {
+class CreateCustomerTest extends DockerContainerTest
+{
     private CustomerStorage customerStorage;
 
     @BeforeAll
     public void Setup() throws SQLException {
 
-        Flyway flyway = new Flyway(new FluentConfiguration()
-                .defaultSchema(Constants.DB)
-                .createSchemas(true)
-                .schemas(Constants.DB)
-                .target("4")
-                .dataSource(Constants.URL, "root", "testuser123"));
-
+        System.err.println("mysql created: " + mysql.isCreated());
+        System.err.println("mysql running: " + mysql.isRunning());
+        System.err.println("mysql host: " + mysql.getHost());
+        String url = "jdbc:mysql://"+mysql.getHost()+":"+mysql.getFirstMappedPort()+"/";
+        String db = "DemoApplicationTest";
+        Flyway flyway = new Flyway(
+                new FluentConfiguration()
+                        .schemas(db)
+                        .defaultSchema(db)
+                        .createSchemas(true)
+                        .target("4")
+                        .dataSource(url, "root", PASSWORD)
+        );
         flyway.migrate();
 
-        customerStorage = new CustomerStorageImpl(Constants.URL+Constants.DB, "root", "testuser123");
+        customerStorage = new CustomerStorageImpl(url+db, "root", PASSWORD);
 
         var numCustomers = customerStorage.getCustomers().size();
         if (numCustomers < 100) {

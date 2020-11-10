@@ -24,7 +24,7 @@ public class Customer {
     }
 
     public static Customer map(int id, CustomerCreation cc) {
-        return new Customer(id, cc.firstname, cc.lastname, cc.birthdate, cc.phoneno);
+        return new Customer(id, cc.getFirstname(), cc.getLastname(), cc.getBirthdate(), cc.getPhoneno());
     }
 
     public int getId() {

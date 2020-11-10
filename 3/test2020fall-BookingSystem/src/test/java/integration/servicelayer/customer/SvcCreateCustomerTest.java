@@ -2,6 +2,7 @@ package integration.servicelayer.customer;
 
 import datalayer.customer.CustomerStorage;
 import datalayer.customer.CustomerStorageImpl;
+import integration.DockerContainerTest;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,24 +22,12 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Testcontainers
-class SvcCreateCustomerTest {
+
+class SvcCreateCustomerTest extends DockerContainerTest
+{
 
     private CustomerService svc;
     private CustomerStorage storage;
-
-    private static final int PORT = 3306;
-    private static final String PASSWORD = "testuser1234";
-
-    @Container
-    public static MySQLContainer mysql = (MySQLContainer) new MySQLContainer(DockerImageName.parse("mysql"))
-            .withPassword(PASSWORD)
-            .withExposedPorts(PORT);
-
-    // A generic container could be used as well:
-//    public static GenericContainer mysql = new GenericContainer(DockerImageName.parse("mysql"))
-//            .withExposedPorts(PORT)
-//            .withEnv("MYSQL_ROOT_PASSWORD", PASSWORD);
 
     @BeforeAll
     public void setup() {
@@ -52,7 +41,7 @@ class SvcCreateCustomerTest {
                         .schemas(db)
                         .defaultSchema(db)
                         .createSchemas(true)
-                        .target("3")
+                        .target("4")
                         .dataSource(url, "root", PASSWORD)
         );
         flyway.migrate();

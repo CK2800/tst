@@ -9,6 +9,7 @@ import datalayer.customer.CustomerStorageImpl;
 import datalayer.employee.EmployeeStorage;
 import datalayer.employee.EmployeeStorageImpl;
 import dto.*;
+import integration.DockerContainerTest;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Tag("integration")
-class CreateBookingTest {
+class CreateBookingTest extends DockerContainerTest
+{
     private BookingStorage bookingStorage;
     private CustomerStorage customerStorage;
     private EmployeeStorage employeeStorage;
@@ -37,18 +39,32 @@ class CreateBookingTest {
     @BeforeAll
     public void Setup() throws SQLException {
 
-        Flyway flyway = new Flyway(new FluentConfiguration()
+        /*Flyway flyway = new Flyway(new FluentConfiguration()
                 .defaultSchema(Constants.DB)
                 .createSchemas(true)
                 .schemas(Constants.DB)
                 .target("4")
                 .dataSource(Constants.URL, "root", "testuser123"));
+*/
 
+        System.err.println("mysql created: " + mysql.isCreated());
+        System.err.println("mysql running: " + mysql.isRunning());
+        System.err.println("mysql host: " + mysql.getHost());
+        String url = "jdbc:mysql://"+mysql.getHost()+":"+mysql.getFirstMappedPort()+"/";
+        String db = "DemoApplicationTest";
+        Flyway flyway = new Flyway(
+                new FluentConfiguration()
+                        .schemas(db)
+                        .defaultSchema(db)
+                        .createSchemas(true)
+                        .target("4")
+                        .dataSource(url, "root", PASSWORD)
+        );
         flyway.migrate();
 
-        bookingStorage = new BookingStorageImpl(Constants.URL + Constants.DB, "root", "testuser123");
-        employeeStorage = new EmployeeStorageImpl(Constants.URL + Constants.DB, "root", "testuser123");
-        customerStorage = new CustomerStorageImpl(Constants.URL + Constants.DB, "root", "testuser123");
+        bookingStorage = new BookingStorageImpl(url+db, "root", PASSWORD);
+        employeeStorage = new EmployeeStorageImpl(url+db, "root", PASSWORD);
+        customerStorage = new CustomerStorageImpl(url+db, "root", PASSWORD);
 
         EmployeeCreation employeeCreation = new EmployeeCreation("Homer", "Simpson", new Date(System.currentTimeMillis()));
         CustomerCreation customerCreation = new CustomerCreation("Seymour", "Skinner", new Date(System.currentTimeMillis()));

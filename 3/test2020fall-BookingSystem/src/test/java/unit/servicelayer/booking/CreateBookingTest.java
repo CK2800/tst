@@ -3,15 +3,10 @@ package unit.servicelayer.booking;
 import datalayer.booking.BookingStorage;
 import datalayer.customer.CustomerStorage;
 import dto.Customer;
-import dto.SmsMessage;
-import dto.SmsMessageStatus;
 import org.junit.jupiter.api.*;
 import servicelayer.booking.BookingService;
 import servicelayer.booking.BookingServiceException;
 import servicelayer.booking.BookingServiceImpl;
-import servicelayer.customer.CustomerService;
-import servicelayer.customer.CustomerServiceException;
-import servicelayer.customer.CustomerServiceImpl;
 import servicelayer.notifications.SmsService;
 import servicelayer.notifications.SmsServiceException;
 
@@ -31,9 +26,9 @@ public class CreateBookingTest {
     private BookingService bookingService;
 
     // DOC (Depended-on Component)
-    private BookingStorage storageMock;
-    private SmsService smsMock;
-    private CustomerStorage customerStorage;
+    private BookingStorage bookingStorageMock;
+    private SmsService smsServiceMock;
+    private CustomerStorage customerStorageMock;
 
 
     @BeforeAll
@@ -43,21 +38,22 @@ public class CreateBookingTest {
 
     @BeforeEach
     public void beforeEach() {
-        storageMock = mock(BookingStorage.class);
-        smsMock = mock(SmsService.class);
-        customerStorage = mock(CustomerStorage.class);
-        bookingService = new BookingServiceImpl(storageMock, smsMock, customerStorage);
+        bookingStorageMock = mock(BookingStorage.class);
+        smsServiceMock = mock(SmsService.class);
+        customerStorageMock = mock(CustomerStorage.class);
+        bookingService = new BookingServiceImpl(bookingStorageMock, smsServiceMock, customerStorageMock);
     }
 
     @Test
     public void mustCallStorageWhenCreatingBooking() throws BookingServiceException, SQLException {
         // Arrange
-        // Act
         var customerId = 1;
         var employeeId = 1;
         var date = new Date(123456789l);
         Time start = new Time(System.currentTimeMillis());
         Time end = new Time(System.currentTimeMillis());
+        when(customerStorageMock.getCustomerWithId(customerId)).thenReturn(new Customer(customerId, "Mr", "Black"));
+        // Act
         bookingService.createBooking(customerId, employeeId,date, start, end);
 
 
@@ -65,7 +61,7 @@ public class CreateBookingTest {
         // Can be read like: verify that storageMock was called 1 time on the method
         //   'createCustomer' with an argument whose 'firstname' == firstName and
         //   whose 'lastname' == lastName
-        verify(storageMock, times(1))
+        verify(bookingStorageMock, times(1))
                 .createBooking(
                         argThat(x -> x.getCustomerId() == customerId));
     }
@@ -79,7 +75,7 @@ public class CreateBookingTest {
         var date = new Date(123456789l);
         Time start = new Time(System.currentTimeMillis());
         Time end = new Time(System.currentTimeMillis());
-        when(customerStorage.getCustomerWithId(1)).thenReturn(new Customer(1,"Homer", "Lastname", date, "555-HOMER"));
+        when(customerStorageMock.getCustomerWithId(1)).thenReturn(new Customer(1,"Homer", "Lastname", date, "555-HOMER"));
 
         // Act
         bookingService.createBooking(customerId, employeeId,date, start, end);
@@ -88,7 +84,7 @@ public class CreateBookingTest {
         // Can be read like: verify that smsMock was called 1 time on the method
         // 'sendSms' with an argument of type SmsMessage with a phone no of "555-HOMER".
 
-        verify(smsMock, times(1))
+        verify(smsServiceMock, times(1))
                 .sendSms(argThat(x -> x.getRecipient().equals("555-HOMER")));
     }
 

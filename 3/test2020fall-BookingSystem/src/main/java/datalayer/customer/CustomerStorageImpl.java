@@ -64,16 +64,30 @@ public class CustomerStorageImpl implements CustomerStorage {
         }
     }
 
+    private boolean customerHasPhone(CustomerCreation customerToCreate)
+    {
+        return customerToCreate.getPhoneno() != null && !"".equals(customerToCreate.getPhoneno().strip());
+    }
+
     public int createCustomer(CustomerCreation customerToCreate) throws SQLException {
-        var sql = "insert into Customers(firstname, lastname, birthdate, phone) values (?, ?, ?, ?)";
+        String sql;
+        boolean hasPhone = customerHasPhone(customerToCreate);
+
+        if (hasPhone)
+            sql = "insert into Customers(firstname, lastname, birthdate, phone) values (?, ?, ?, ?)";
+        else
+            sql = "INSERT INTO Customers(firstname, lastname, birthdate) values (?, ?, ?)";
+
         try (var con = getConnection();
             var stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, customerToCreate.getFirstname());
             stmt.setString(2, customerToCreate.getLastname());
-            stmt.setDate(3, (Date) customerToCreate.getBirthdate());
+            java.util.Date date = customerToCreate.getBirthdate();
+            stmt.setDate(3, new java.sql.Date(customerToCreate.getBirthdate().getTime()));
 
-            if(customerToCreate.getPhoneno() != null) stmt.setString(4, customerToCreate.getPhoneno());
-            else stmt.setNull(4, Types.VARCHAR);
+            if (hasPhone)
+                stmt.setString(4, customerToCreate.getPhoneno());
+            //else stmt.setNull(4, Types.VARCHAR);
 
             stmt.executeUpdate();
 

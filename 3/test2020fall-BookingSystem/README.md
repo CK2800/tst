@@ -1,20 +1,14 @@
 # Booking system.
 
-## Requirements:
+### Requirements:
 
-A running mysql server exposed at port 3307.
-<br>Root password must be testuser123
+* Docker Desktop running - download [here.](https://www.docker.com/products/docker-desktop)
+* docker-machine on PATH - how-to [here](https://docs.docker.com/machine/install-machine/) - requires reboot.
 
 ### Setup:
 
 - Clone this repo.
-- Install Docker.
-- Run this command to set up mysql in a Docker container with a database named mysql-test-db: \
-  <code>docker run -d --rm \
-  --name mysql-test-db \
-  -e MYSQL_ROOT_PASSWORD=testuser123 \
-  -p 3307:3306
-  mysql</code>
+- Run the test suite.
 
 ### Features:
 
