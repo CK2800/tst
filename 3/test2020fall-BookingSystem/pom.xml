@@ -12,6 +12,7 @@
             <plugin>
                 <!--
                 These are used for running the maven target flyway:migrate
+                (Not intended for the containerized tests).
                 -->
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>

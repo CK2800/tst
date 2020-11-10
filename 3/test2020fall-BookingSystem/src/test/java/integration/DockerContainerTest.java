@@ -12,7 +12,7 @@ public class DockerContainerTest
     protected static final String PASSWORD = "testuser123";
 
     @Container
-    public static MySQLContainer mysql;
+    public static final MySQLContainer mysql;
 
     // static initializer to start up a docker container.
     static
