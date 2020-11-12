@@ -1,11 +1,9 @@
 package ui;
 
-import game.Engine;
 import gameobjects.Apple;
 import gameobjects.Facade;
 import gameobjects.Snake;
 import gameobjects.constants.Direction;
-import gameobjects.impl.FacadeImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +13,7 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener
 {
-    private int screenWidth, screenHeight, unitSize, delay;
+    private final int screenWidth, screenHeight, unitSize, delay;
     private boolean showGrid, running;
     private Facade facade;
     private Apple apple;
@@ -23,6 +21,7 @@ public class GamePanel extends JPanel implements ActionListener
     private Random random;
     private Timer timer;
     private Direction direction = Direction.NONE;
+    private SnakeKeyAdapter snakeKeyAdapter = new SnakeKeyAdapter();
 
 
     public GamePanel(int screenWidth, int screenHeight, int unitSize, boolean showGrid, int delay, Facade facade)
@@ -48,7 +47,7 @@ public class GamePanel extends JPanel implements ActionListener
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setFocusable(true);
-        this.addKeyListener(new SnakeKeyAdapter());
+        this.addKeyListener(snakeKeyAdapter);
 
         startGame();
     }
@@ -57,8 +56,8 @@ public class GamePanel extends JPanel implements ActionListener
     {
         facade.moveAppleTo(
                 apple,
-                random.nextInt((int)screenWidth/unitSize)*unitSize,
-                random.nextInt((int)screenHeight/unitSize)*unitSize);
+                random.nextInt((int) screenWidth / unitSize)* unitSize,
+                random.nextInt((int) screenHeight / unitSize)* unitSize);
     }
 
     public void startGame()
@@ -90,18 +89,20 @@ public class GamePanel extends JPanel implements ActionListener
         for(int i = 0; i < screenHeight / unitSize; i++)
         {
             g.drawLine(i * unitSize, 0, i * unitSize, screenHeight);
-            g.drawLine(0, i*unitSize, screenWidth, i*unitSize);
+            g.drawLine(0, i* unitSize, screenWidth, i* unitSize);
         }
     }
 
     public void move()
     {
-        facade.moveSnakeBy(snake, Direction.RIGHT, unitSize);
+        facade.moveSnakeBy(snake, snakeKeyAdapter.getCurrentDirection(), unitSize);
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
+
+        System.out.println(running);
         if(running)
         {
             move();

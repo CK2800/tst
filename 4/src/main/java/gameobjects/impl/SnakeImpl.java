@@ -2,6 +2,7 @@ package gameobjects.impl;
 
 import gameobjects.Collidable;
 import gameobjects.Snake;
+import gameobjects.constants.Border;
 import gameobjects.constants.Direction;
 
 import java.awt.*;
@@ -13,6 +14,12 @@ import static gameobjects.constants.Direction.*;
 public class SnakeImpl implements Snake
 {
     private List<Point> points;
+    private Direction currentDirection = NONE;
+
+    public Direction getCurrentDirection()
+    {
+        return currentDirection;
+    }
 
     private SnakeImpl(){}
     public SnakeImpl(List<Point> points)
@@ -69,8 +76,54 @@ public class SnakeImpl implements Snake
 
 
     @Override
-    public void moveBy(Direction direction, int pixels)
+    public boolean moveBy(Direction direction, int pixels)
     {
+        switch(direction)
+        {
+            case UP:
+                if (currentDirection != DOWN)
+                {
+                    doMoveBy(direction, pixels);
+                    currentDirection = direction;
+                    return true;
+                }
+                return false;
+
+            case DOWN:
+                if (currentDirection != UP)
+                {
+                    doMoveBy(direction, pixels);
+                    currentDirection = direction;
+                    return true;
+                }
+                return false;
+
+            case LEFT:
+                if (currentDirection != RIGHT)
+                {
+                    doMoveBy(direction, pixels);
+                    currentDirection = direction;
+                    return true;
+                }
+                return false;
+
+            case RIGHT:
+                if (currentDirection != LEFT)
+                {
+                    doMoveBy(direction, pixels);
+                    currentDirection = direction;
+                    return true;
+                }
+                return false;
+            default:
+                return false;
+        }
+    }
+
+
+    public void doMoveBy(Direction direction, int pixels)
+    {
+
         // use private helper.
         moveBody();
 
@@ -82,16 +135,16 @@ public class SnakeImpl implements Snake
         {
             case UP:
 
-                head.x -= pixels;
-                break;
-            case DOWN:
-                head.x += pixels;
-                break;
-            case LEFT:
                 head.y -= pixels;
                 break;
-            case RIGHT:
+            case DOWN:
                 head.y += pixels;
+                break;
+            case LEFT:
+                head.x -= pixels;
+                break;
+            case RIGHT:
+                head.x += pixels;
                 break;
             case NONE:
                 break;
@@ -101,6 +154,24 @@ public class SnakeImpl implements Snake
 
         // update the head.
         points.set(0, head);
+    }
+
+    @Override
+    public boolean hasHitBorder(Border border, int threshold)
+    {
+        switch(border)
+        {
+            case TOP:
+                return this.points.get(0).y < threshold;
+            case BOTTOM:
+                return this.points.get(0).y > threshold;
+            case LEFT:
+                return this.points.get(0).x < threshold;
+            case RIGHT:
+                return this.points.get(0).x > threshold;
+            default:
+                throw new IllegalArgumentException("The supplied value of type Border is not supported.");
+        }
     }
 
     private void moveBody()

@@ -25,7 +25,7 @@ public class FacadeImpl implements Facade
     }
 
     /**
-     * Creates a Snake object of the specified length. All snake parts are placed in (0,0).
+     * Creates a Snake object of the specified length. Snake head is placed in (0,0), all body parts outside the viewing area.
      * @param snakeLength 3 or above.
      * @return Snake
      */
@@ -35,7 +35,7 @@ public class FacadeImpl implements Facade
 
         List<Point> snakePoints = new ArrayList<Point>();
         for(int i = 0; i < snakeLength; i++)
-            snakePoints.add(new Point(0,0));
+            snakePoints.add(new Point(i*-10,0));
         return new SnakeImpl(snakePoints);
     }
 

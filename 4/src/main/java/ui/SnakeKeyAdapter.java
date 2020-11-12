@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 
 public class SnakeKeyAdapter extends KeyAdapter
 {
-    private Direction currentDirection = null;
+    private Direction currentDirection = Direction.NONE;
     public Direction getCurrentDirection()
     {
         return currentDirection;

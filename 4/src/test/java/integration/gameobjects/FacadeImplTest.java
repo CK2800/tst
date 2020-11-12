@@ -17,7 +17,7 @@ public class FacadeImplTest
     // UUT
     Facade facade = new FacadeImpl();
 
-    // Mocks
+    // DOC
     @Mock
     Apple appleMock = mock(Apple.class);
     @Mock

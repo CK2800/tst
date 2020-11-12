@@ -1,5 +1,6 @@
 package gameobjects;
 
+import gameobjects.constants.Border;
 import gameobjects.constants.Direction;
 import gameobjects.impl.Drawable;
 
@@ -12,5 +13,7 @@ public interface Snake extends Collidable, Drawable
 
     List<Point> getPoints();
 
-    void moveBy(Direction direction, int pixels);
+    boolean moveBy(Direction direction, int pixels);
+
+    boolean hasHitBorder(Border border, int threshold);
 }
