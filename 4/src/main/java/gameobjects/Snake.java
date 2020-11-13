@@ -13,11 +13,13 @@ public interface Snake extends Collidable, Drawable
 
     List<Point> getPoints();
 
-    boolean moveBy(Direction direction, int pixels);
+    boolean moveBy(Direction direction, int pixels, boolean headOnly);
 
     boolean hasHitBorder(Border border, int threshold);
 
     int getLength();
 
     void addBodyPart(int count);
+
+    Point getHead();
 }

@@ -68,6 +68,48 @@ public class FacadeImpl implements Facade
 
     }
 
+    /**
+     * Wraps a snake around the playing field by moving its head to the opposite border.
+     * @param snake
+     * @param borderCrossed
+     * @param width The width of the playing field.
+     * @param height The height of the playing field.
+     */
+    @Override
+    public void wrapSnake(Snake snake, Border borderCrossed, int width, int height) throws IllegalArgumentException
+    {
+        Point head = snake.getHead();
+        Direction direction;
+        int pixels;
+        switch(borderCrossed)
+        {
+            case TOP:
+                pixels = height + head.y;
+                direction = Direction.UP;
+                break;
+
+            case BOTTOM:
+                pixels = head.y - height;
+                direction = Direction.DOWN;
+                break;
+
+            case LEFT:
+                pixels = width + head.x;
+                direction = Direction.LEFT;
+                break;
+
+            case RIGHT:
+                pixels = head.x - width;
+                direction = Direction.RIGHT;
+                break;
+
+            default:
+                throw new IllegalArgumentException("borderCrossed argument is invalid.");
+
+        }
+        snake.moveBy(direction, pixels, true);
+    }
+
     @Override
     public void moveAppleTo(Apple apple, int x, int y)
     {
@@ -77,7 +119,7 @@ public class FacadeImpl implements Facade
     @Override
     public void moveSnakeBy(Snake snake, Direction direction, int pixels)
     {
-        snake.moveBy(direction, pixels);
+        snake.moveBy(direction, pixels, false);
     }
 
     @Override

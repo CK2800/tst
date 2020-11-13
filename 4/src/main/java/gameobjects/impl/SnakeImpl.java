@@ -76,7 +76,7 @@ public class SnakeImpl implements Snake
 
 
     @Override
-    public boolean moveBy(Direction direction, int pixels)
+    public boolean moveBy(Direction direction, int pixels, boolean headOnly)
     {
         if (pixels < 0)
             throw new IllegalArgumentException("Pixels must be greater than zero.");
@@ -85,7 +85,7 @@ public class SnakeImpl implements Snake
             case UP:
                 if (currentDirection != DOWN)
                 {
-                    doMoveBy(direction, pixels);
+                    doMoveBy(direction, pixels, headOnly);
                     currentDirection = direction;
                     return true;
                 }
@@ -94,7 +94,7 @@ public class SnakeImpl implements Snake
             case DOWN:
                 if (currentDirection != UP)
                 {
-                    doMoveBy(direction, pixels);
+                    doMoveBy(direction, pixels, headOnly);
                     currentDirection = direction;
                     return true;
                 }
@@ -103,7 +103,7 @@ public class SnakeImpl implements Snake
             case LEFT:
                 if (currentDirection != RIGHT)
                 {
-                    doMoveBy(direction, pixels);
+                    doMoveBy(direction, pixels, headOnly);
                     currentDirection = direction;
                     return true;
                 }
@@ -112,7 +112,7 @@ public class SnakeImpl implements Snake
             case RIGHT:
                 if (currentDirection != LEFT)
                 {
-                    doMoveBy(direction, pixels);
+                    doMoveBy(direction, pixels, headOnly);
                     currentDirection = direction;
                     return true;
                 }
@@ -123,11 +123,11 @@ public class SnakeImpl implements Snake
     }
 
 
-    public void doMoveBy(Direction direction, int pixels)
+    private void doMoveBy(Direction direction, int pixels, boolean headOnly)
     {
-
         // use private helper.
-        moveBody();
+        if (!headOnly)
+            moveBody();
 
         // clone the heads point since it is also referenced by first bodypart after head.
         Point head = (Point)points.get(0).clone();
@@ -184,6 +184,26 @@ public class SnakeImpl implements Snake
 
         for(int i = 0; i < count; i++)
             points.add(new Point(rear.x, rear.y));
+    }
+
+//    @Override
+//    public void moveHeadTo(int x, int y)
+//    {
+//        if (x < 0 || y < 0)
+//            throw new IllegalArgumentException("The provided values for x and y must both be zero or larger.");
+//        Point head = points.get(0);
+//        head.x = x;
+//        head.y = y;
+//    }
+
+    /**
+     * Gets a copy of the head position.
+     * @return Point
+     */
+    public Point getHead()
+    {
+        // we do NOT want do expose the internal head Point.
+        return (Point)points.get(0).clone();
     }
 
     /**

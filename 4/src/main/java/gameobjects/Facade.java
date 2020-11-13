@@ -1,5 +1,6 @@
 package gameobjects;
 
+import gameobjects.constants.Border;
 import gameobjects.constants.Direction;
 
 import java.awt.*;
@@ -21,4 +22,6 @@ public interface Facade
     void growSnake(Snake snake, int length);
 
     boolean snakeCollidesWithBorder(Snake snake, int width, int height);
+
+    void wrapSnake(Snake snake, Border borderCrossed, int width, int height);
 }

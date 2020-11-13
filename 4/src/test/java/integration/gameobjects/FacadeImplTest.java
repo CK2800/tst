@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.internal.verification.Times;
 
+import java.awt.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,7 +50,7 @@ public class FacadeImplTest
         facade.moveSnakeBy(snakeMock, Direction.RIGHT, 5);
 
         // Assert
-        verify(snakeMock).moveBy(Direction.RIGHT,5);
+        verify(snakeMock).moveBy(Direction.RIGHT,5, false);
     }
 
     @Test
@@ -84,7 +85,7 @@ public class FacadeImplTest
     public void mustReturnTrueWhenRealSnakeHitsBorder(Direction direction, int pixels, int threshold, boolean expected) {
         // Arrange
         Snake realSnake = facade.createSnake(3); // snake head @ (0,0)
-        realSnake.moveBy(direction, pixels);
+        realSnake.moveBy(direction, pixels, false);
         // Act
         var result = facade.snakeCollidesWithBorder(realSnake, threshold, threshold);
 
@@ -109,5 +110,57 @@ public class FacadeImplTest
 
         // Assert
         verify(snakeMock, times(4)).hasHitBorder(any(Border.class), anyInt());
+    }
+
+    @Test
+    public void mustWrapSnakeAfterHittingTopBorder() {
+        // Arrange
+        int width = 800, height = 800;
+        when(snakeMock.getHead()).thenReturn(new Point(0,-50)); // head 50 pixels above top border.
+
+        // Act
+        facade.wrapSnake(snakeMock, Border.TOP, width, height);
+
+        // Assert
+        verify(snakeMock).moveBy(Direction.UP, 750, true);
+    }
+
+    @Test
+    public void mustWrapSnakeAfterHittingBottomBorder() {
+        // Arrange
+        int width = 800, height = 800;
+        when(snakeMock.getHead()).thenReturn(new Point(0, 850)); // head 50 pixels below bottom border.
+
+        // Act
+        facade.wrapSnake(snakeMock, Border.BOTTOM, width, height);
+
+        // Assert
+        verify(snakeMock).moveBy(Direction.DOWN, 50, true);
+    }
+
+    @Test
+    public void mustWrapSnakeAfterHittingLeftBorder() {
+        // Arrange
+        int width = 400, height=1000;
+        when(snakeMock.getHead()).thenReturn(new Point(-75, 200)); // head 75 pixels left of left border.
+
+        // Act
+        facade.wrapSnake(snakeMock, Border.LEFT, width, height);
+
+        // Assert
+        verify(snakeMock).moveBy(Direction.LEFT, 325, true);
+    }
+
+    @Test
+    public void mustWrapSnakeAfterHittingRightBorder() {
+        // Arrange
+        int width = 275, height = 100;
+        when(snakeMock.getHead()).thenReturn(new Point(280, 20)); // head 5 pixels right of right border.
+
+        // Act
+        facade.wrapSnake(snakeMock, Border.RIGHT, width, height);
+
+        // Assert
+        verify(snakeMock).moveBy(Direction.RIGHT, 5, true);
     }
 }

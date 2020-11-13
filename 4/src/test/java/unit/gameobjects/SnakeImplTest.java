@@ -181,7 +181,7 @@ public class SnakeImplTest
         snake = new SnakeImpl(initialPoints);
 
         // Act
-        snake.moveBy(Direction.DOWN, amountToMove);
+        snake.moveBy(Direction.DOWN, amountToMove, false);
         var result = snake.getPoints().get(0).y;
 
         // Assert
@@ -199,7 +199,7 @@ public class SnakeImplTest
         snake = new SnakeImpl(initialPoints);
 
         // Act
-        snake.moveBy(Direction.UP, amountToMove);
+        snake.moveBy(Direction.UP, amountToMove, false);
         var result = snake.getPoints().get(0).y;
 
         // Assert
@@ -218,7 +218,7 @@ public class SnakeImplTest
         snake = new SnakeImpl(initialPoints);
 
         // Act
-        snake.moveBy(Direction.LEFT, amountToMove);
+        snake.moveBy(Direction.LEFT, amountToMove, false);
         var result = snake.getPoints().get(0).x;
 
         // Assert
@@ -235,7 +235,7 @@ public class SnakeImplTest
         snake = new SnakeImpl(initialPoints);
 
         // Act
-        snake.moveBy(Direction.RIGHT, amountToMove);
+        snake.moveBy(Direction.RIGHT, amountToMove, false);
         var result = snake.getPoints().get(0).x;
 
         // Assert
@@ -256,7 +256,7 @@ public class SnakeImplTest
         List<Point> newPoints;
 
         // Act
-        snake.moveBy(Direction.RIGHT, 50);
+        snake.moveBy(Direction.RIGHT, 50, false);
         newPoints = snake.getPoints();
 
         // Assert
@@ -286,8 +286,8 @@ public class SnakeImplTest
         snake = new SnakeImpl(initialPoints);
 
         // Act
-        snake.moveBy(currentDirection, 200);
-        var result = snake.moveBy(newDirection, 200);
+        snake.moveBy(currentDirection, 200, false);
+        var result = snake.moveBy(newDirection, 200, false);
 
         // Assert
         assertEquals(expected, result);
@@ -332,14 +332,24 @@ public class SnakeImplTest
     private static Stream setBorderArgs()
     {
         return Stream.of(
+
+                // TOP border is hit if y < 0
                 Arguments.of(new Point(0,-1), Border.TOP, 0, true),
                 Arguments.of(new Point(0,0), Border.TOP, 0, false),
+
+                // BOTTOM border is hit if y >= 800.
                 Arguments.of(new Point(0,801), Border.BOTTOM, 800, true),
-                Arguments.of(new Point(0,800), Border.BOTTOM, 800, false),
+                Arguments.of(new Point(0, 800), Border.BOTTOM, 800, true),
+                Arguments.of(new Point(0,799), Border.BOTTOM, 800, false),
+
+                // LEFT border is hit if x < 0
                 Arguments.of(new Point(-1,217), Border.LEFT, 0, true),
                 Arguments.of(new Point(0,217), Border.LEFT, 0, false),
+
+                // RIGHT border is hit if x >= 1024
                 Arguments.of(new Point(1025,217), Border.RIGHT, 1024, true),
-                Arguments.of(new Point(1024,217), Border.RIGHT, 1024, false)
+                Arguments.of(new Point(1024, 217), Border.RIGHT, 1024, true),
+                Arguments.of(new Point(1023,217), Border.RIGHT, 1024, false)
         );
     }
 }
