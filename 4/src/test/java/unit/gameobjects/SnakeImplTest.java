@@ -80,6 +80,25 @@ public class SnakeImplTest
     }
 
     @Test
+    public void mustAddBodyPartsWhenGrowingSnake() {
+        // Arrange
+        var initialLength = 1;
+        var growth = 4;
+        var expected = initialLength + growth;
+        initialPoints.add(new Point(0,0));
+        snake = new SnakeImpl(initialPoints);
+
+        // Act
+        snake.addBodyPart(growth);
+
+        // Act
+        var result = snake.getLength();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void mustThrowWhenSnakeIsInitiatedWithEmptyPointsList() {
         // Arrange
         assertThrows(IllegalArgumentException.class, () -> new SnakeImpl(new ArrayList<>()));

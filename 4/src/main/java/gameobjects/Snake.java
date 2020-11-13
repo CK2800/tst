@@ -16,4 +16,8 @@ public interface Snake extends Collidable, Drawable
     boolean moveBy(Direction direction, int pixels);
 
     boolean hasHitBorder(Border border, int threshold);
+
+    int getLength();
+
+    void addBodyPart(int count);
 }

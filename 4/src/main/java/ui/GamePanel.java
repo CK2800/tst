@@ -107,9 +107,22 @@ public class GamePanel extends JPanel implements ActionListener
         {
             move();
             if (facade.isEatenBy(apple, snake))
+            {
                 newApple(facade, apple);
+                facade.growSnake(snake, 1);
+            }
             if (facade.snakeCollidesWithBody(snake))
+            {
+                System.out.println("Snake body hit");
                 running = false;
+            }
+
+            if (facade.snakeCollidesWithBorder(snake, screenWidth, screenHeight))
+            {
+                System.out.println("BORDER HIT");
+                running = false;
+            }
+
         }
         repaint();
     }

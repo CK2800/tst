@@ -78,6 +78,8 @@ public class SnakeImpl implements Snake
     @Override
     public boolean moveBy(Direction direction, int pixels)
     {
+        if (pixels < 0)
+            throw new IllegalArgumentException("Pixels must be greater than zero.");
         switch(direction)
         {
             case UP:
@@ -164,14 +166,34 @@ public class SnakeImpl implements Snake
             case TOP:
                 return this.points.get(0).y < threshold;
             case BOTTOM:
-                return this.points.get(0).y > threshold;
+                return this.points.get(0).y >= threshold;
             case LEFT:
                 return this.points.get(0).x < threshold;
             case RIGHT:
-                return this.points.get(0).x > threshold;
+                return this.points.get(0).x >= threshold;
             default:
-                throw new IllegalArgumentException("The supplied value of type Border is not supported.");
+                throw new IllegalArgumentException("The supplied value of type Border is not supported." + border.toString());
         }
+    }
+
+    @Override
+    public void addBodyPart(int count)
+    {
+        // Put new bodyparts in the rear end of snake.
+        Point rear = (Point)points.get(points.size()-1).clone();
+
+        for(int i = 0; i < count; i++)
+            points.add(new Point(rear.x, rear.y));
+    }
+
+    /**
+     * Total length of the snake.
+     * @return int
+     */
+    @Override
+    public int getLength()
+    {
+        return points.size();
     }
 
     private void moveBody()

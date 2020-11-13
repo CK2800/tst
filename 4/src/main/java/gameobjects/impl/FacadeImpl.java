@@ -3,6 +3,7 @@ package gameobjects.impl;
 import gameobjects.Apple;
 import gameobjects.Facade;
 import gameobjects.Snake;
+import gameobjects.constants.Border;
 import gameobjects.constants.Direction;
 
 import java.awt.*;
@@ -37,6 +38,34 @@ public class FacadeImpl implements Facade
         for(int i = 0; i < snakeLength; i++)
             snakePoints.add(new Point(i*-10,0));
         return new SnakeImpl(snakePoints);
+    }
+
+    @Override
+    public void growSnake(Snake snake, int length)
+    {
+        // defensive programming.
+        if (length <= 0)
+            throw new IllegalArgumentException("length must be greater than 0!");
+        if (snake == null)
+            throw new NullPointerException("snake is null.");
+        snake.addBodyPart(length);
+    }
+
+    /**
+     * Checks if snake is at either border of the playing area.     *
+     * @param snake
+     * @param width The placement of the right border, i.e. the width of the playing area.
+     * @param height The placement of the bottom border, i.e. the height of the playing area.
+     * @return
+     */
+    @Override
+    public boolean snakeCollidesWithBorder(Snake snake, int width, int height)
+    {
+        return snake.hasHitBorder(Border.TOP, 0) ||
+                snake.hasHitBorder(Border.LEFT, 0) ||
+                snake.hasHitBorder(Border.BOTTOM, height) ||
+                snake.hasHitBorder(Border.RIGHT, width);
+
     }
 
     @Override

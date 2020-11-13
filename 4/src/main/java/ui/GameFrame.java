@@ -38,7 +38,7 @@ public class GameFrame extends JFrame
                                         null,
                                         600,
                                         600,
-                                        5,
+                                        25,
                                         true,
                                         75,
                                         new FacadeImpl());

@@ -17,4 +17,8 @@ public interface Facade
     Apple createApple();
 
     Snake createSnake(int snakeLength);
+
+    void growSnake(Snake snake, int length);
+
+    boolean snakeCollidesWithBorder(Snake snake, int width, int height);
 }
