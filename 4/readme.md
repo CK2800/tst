@@ -1,9 +1,6 @@
 # Assignment 4
 
-## Reflections
-
-
-- ### Mockito powerups
+### Mockito powerups
 Answer the following questions about Mockito. Use code examples in your explanations.
 * How do you verify that a mock was called?\
 We can use <code>verify</code> to check if a certain method of the mock was called.\
@@ -57,3 +54,10 @@ The code below checks if the arguments provided are of type Border and int:
         verify(snakeMock, times(4)).hasHitBorder(any(Border.class), anyInt());
 
 ---
+###At least one
+To run the Snake game, you must:
+1. clone this repo.
+2. Run the main method (duh!) found in ui.GameFrame.
+3. If you are feeling sporty, I dare you to lower the delay and set snakeFrame to false.
+4. All other arguments you adjust at your own risk. Results will vary.
+5. If (when) you lose, you need to restart by running the main method again. Feeling collegial? I dare you to implement a restart button ;-) 
