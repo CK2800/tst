@@ -78,6 +78,7 @@ public class FacadeImplTest
 
         // Assert
         verify(snakeMock).collidesWith(snakeMock);
+
     }
 
     @ParameterizedTest
