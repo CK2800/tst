@@ -49,6 +49,7 @@ public class SnakeImplTest
         initialPoints = new ArrayList<Point>();
     }
 
+
     @Test
     public void mustReturnTrueWhenSnakeCollidesWithBody() {
         // Arrange
@@ -122,6 +123,18 @@ public class SnakeImplTest
 
         // Assert
         assertEquals(expected, result);
+    }
+
+    @Test
+    public void mustThrowWhenMaxLengthIsZero() {
+        // Arrange
+        initialPoints.add(new Point(0,0));
+        initialPoints.add(new Point(10,10));
+        initialPoints.add(new Point(0,0));
+        snake = new SnakeImpl(initialPoints);
+
+        // Assert
+        assertThrows(IllegalArgumentException.class, () -> snake.isGameWon(0));
     }
 
     @Test

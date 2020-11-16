@@ -3,6 +3,7 @@ package ui;
 import gameobjects.Apple;
 import gameobjects.Facade;
 import gameobjects.Snake;
+import gameobjects.constants.Border;
 import gameobjects.constants.Direction;
 
 import javax.swing.*;
@@ -14,17 +15,18 @@ import java.util.Random;
 public class GamePanel extends JPanel implements ActionListener
 {
     private final int screenWidth, screenHeight, unitSize, delay;
-    private boolean showGrid, running;
+    private boolean showGrid, snakeWraps, running;
     private Facade facade;
     private Apple apple;
     private Snake snake;
     private Random random;
     private Timer timer;
-    private Direction direction = Direction.NONE;
+    private Direction currentDirection = Direction.NONE;
+    private Direction nextDirection = Direction.NONE;
     private SnakeKeyAdapter snakeKeyAdapter = new SnakeKeyAdapter();
 
 
-    public GamePanel(int screenWidth, int screenHeight, int unitSize, boolean showGrid, int delay, Facade facade)
+    public GamePanel(int screenWidth, int screenHeight, int unitSize, boolean showGrid, int delay, boolean snakeWraps, Facade facade)
     {
         // Q&D let's be defensive.
         if(
@@ -37,6 +39,7 @@ public class GamePanel extends JPanel implements ActionListener
         this.unitSize = unitSize;
         this.showGrid = showGrid;
         this.delay = delay;
+        this.snakeWraps = snakeWraps;
         this.facade = facade;
         this.apple = facade.createApple();
         this.snake = facade.createSnake(3);
@@ -95,7 +98,11 @@ public class GamePanel extends JPanel implements ActionListener
 
     public void move()
     {
-        facade.moveSnakeBy(snake, snakeKeyAdapter.getCurrentDirection(), unitSize);
+        nextDirection = snakeKeyAdapter.getCurrentDirection();
+        if (facade.moveSnakeBy(snake, nextDirection, unitSize))
+            currentDirection = nextDirection;
+        else
+            facade.moveSnakeBy(snake, currentDirection, unitSize);
     }
 
     @Override
@@ -117,10 +124,13 @@ public class GamePanel extends JPanel implements ActionListener
                 running = false;
             }
 
-            if (facade.snakeCollidesWithBorder(snake, screenWidth, screenHeight))
+            Border border = facade.snakeCollidesWithBorder(snake, screenWidth, screenHeight);
+            if (border != Border.NONE)
             {
-                System.out.println("BORDER HIT");
-                running = false;
+                if (snakeWraps)
+                    facade.wrapSnake(snake, border, screenWidth, screenHeight);
+                else
+                    running = false;
             }
 
         }

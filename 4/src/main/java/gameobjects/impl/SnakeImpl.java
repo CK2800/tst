@@ -16,11 +16,6 @@ public class SnakeImpl implements Snake
     private List<Point> points;
     private Direction currentDirection = NONE;
 
-    public Direction getCurrentDirection()
-    {
-        return currentDirection;
-    }
-
     private SnakeImpl(){}
     public SnakeImpl(List<Point> points)
     {
@@ -78,8 +73,8 @@ public class SnakeImpl implements Snake
     @Override
     public boolean moveBy(Direction direction, int pixels, boolean headOnly)
     {
-        if (pixels < 0)
-            throw new IllegalArgumentException("Pixels must be greater than zero.");
+//        if (pixels < 0)
+//            throw new IllegalArgumentException("Pixels must be greater than zero.");
         switch(direction)
         {
             case UP:

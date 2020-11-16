@@ -59,13 +59,18 @@ public class FacadeImpl implements Facade
      * @return
      */
     @Override
-    public boolean snakeCollidesWithBorder(Snake snake, int width, int height)
+    public Border snakeCollidesWithBorder(Snake snake, int width, int height)
     {
-        return snake.hasHitBorder(Border.TOP, 0) ||
-                snake.hasHitBorder(Border.LEFT, 0) ||
-                snake.hasHitBorder(Border.BOTTOM, height) ||
-                snake.hasHitBorder(Border.RIGHT, width);
+        if (snake.hasHitBorder(Border.TOP, 0))
+            return Border.TOP;
+        if (snake.hasHitBorder(Border.LEFT, 0))
+            return Border.LEFT;
+        if(snake.hasHitBorder(Border.BOTTOM, height))
+            return Border.BOTTOM;
+        if (snake.hasHitBorder(Border.RIGHT, width))
+            return Border.RIGHT;
 
+        return Border.NONE;
     }
 
     /**
@@ -84,22 +89,22 @@ public class FacadeImpl implements Facade
         switch(borderCrossed)
         {
             case TOP:
-                pixels = height + head.y;
+                pixels = -height;
                 direction = Direction.UP;
                 break;
 
             case BOTTOM:
-                pixels = head.y - height;
+                pixels = -height;
                 direction = Direction.DOWN;
                 break;
 
             case LEFT:
-                pixels = width + head.x;
+                pixels = -width;
                 direction = Direction.LEFT;
                 break;
 
             case RIGHT:
-                pixels = head.x - width;
+                pixels = -width;
                 direction = Direction.RIGHT;
                 break;
 
@@ -117,9 +122,9 @@ public class FacadeImpl implements Facade
     }
 
     @Override
-    public void moveSnakeBy(Snake snake, Direction direction, int pixels)
+    public boolean moveSnakeBy(Snake snake, Direction direction, int pixels)
     {
-        snake.moveBy(direction, pixels, false);
+        return snake.moveBy(direction, pixels, false);
     }
 
     @Override

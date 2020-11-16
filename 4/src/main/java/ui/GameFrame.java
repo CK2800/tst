@@ -9,7 +9,7 @@ import java.awt.*;
 public class GameFrame extends JFrame
 {
     public GameFrame(String title, int defaultCloseOperation, boolean resizable, boolean visible, Component component,
-                     int screenWidth, int screenHeight, int unitSize, boolean showGrid, int delay, Facade facade)
+                     int screenWidth, int screenHeight, int unitSize, boolean showGrid, int delay, boolean snakeWraps, Facade facade)
     {
         // Q&D let's be defensive.
         if (screenWidth < 600 ||
@@ -18,7 +18,7 @@ public class GameFrame extends JFrame
             delay < 25) throw new IllegalArgumentException("GameFrame cannot be run under these circumstances!");
 
         // relay args to GamePanel.
-        this.add(new GamePanel(screenWidth, screenHeight, unitSize, showGrid, delay, facade));
+        this.add(new GamePanel(screenWidth, screenHeight, unitSize, showGrid, delay, snakeWraps, facade));
 
 
         this.setTitle(title);
@@ -38,9 +38,10 @@ public class GameFrame extends JFrame
                                         null,
                                         600,
                                         600,
-                                        25,
+                                        20,
                                         true,
                                         75,
+                                        true, // false here means no hitting the walls!!!
                                         new FacadeImpl());
     }
 }
