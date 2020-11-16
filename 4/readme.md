@@ -37,18 +37,18 @@ By specifying the wanted number of invocations, e.g.
 Using <code>verify</code> we can specify exactly what arguments we expect a method to be called with and compare with the actual arguments, e.g.
 
     
-    public void mustWrapSnakeAfterHittingBottomBorder()    
-    {
-        // Arrange        
-        int width = 500, height = 800;        
-        when(snakeMock.getHead()).thenReturn(new Point(0, 850)); // head 50 pixels below bottom border.
+        public void mustWrapSnakeAfterHittingBottomBorder()    
+        {
+            // Arrange        
+            int width = 500, height = 800;        
+            when(snakeMock.getHead()).thenReturn(new Point(0, 850)); // head 50 pixels below bottom border.
 
-        // Act
-        facade.wrapSnake(snakeMock, Border.BOTTOM, width, height);
+            // Act
+            facade.wrapSnake(snakeMock, Border.BOTTOM, width, height);
 
-        // Assert
-        verify(snakeMock).moveBy(Direction.DOWN, -800, true);
-    }
+            // Assert
+            verify(snakeMock).moveBy(Direction.DOWN, -800, true);
+        }
 * How do you use a predicate to verify the properties of the arguments given to a call to the mock?\
 We can combine <code>verify</code>-method with the <code>any</code>-method to check if the provided arguments are of a certain type.\
 The code below checks if the arguments provided are of type Border and int:
