@@ -54,7 +54,7 @@ The code below checks if the arguments provided are of type Border and int:
         verify(snakeMock, times(4)).hasHitBorder(any(Border.class), anyInt());
 
 ---
-###At least one
+### At least one
 To run the Snake game, you must:
 1. clone this repo.
 2. Run the main method (duh!) found in ui.GameFrame.
