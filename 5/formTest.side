@@ -1,0 +1,194 @@
+{
+  "id": "ed282f99-6ae7-419a-af22-8d07512e024e",
+  "version": "2.0",
+  "name": "formTest",
+  "url": "https://sqengineer.com",
+  "tests": [{
+    "id": "735b1071-16df-49ba-9259-84b5328ac545",
+    "name": "testForm",
+    "commands": [{
+      "id": "c314cebf-47d6-4ba6-88b3-cc48c84b2d43",
+      "comment": "",
+      "command": "open",
+      "target": "/practice-sites/basic-web-elements/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "083bed2a-fb04-4a90-9bfc-bc576f63cc8f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1033x705",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1231ce1c-1125-4faa-bd06-336ac5d30842",
+      "comment": "",
+      "command": "click",
+      "target": "id=firstName",
+      "targets": [
+        ["id=firstName", "id"],
+        ["name=fname", "name"],
+        ["css=#firstName", "css:finder"],
+        ["xpath=//input[@id='firstName']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea1f60ac-b36c-471a-b92b-dcee7e80839c",
+      "comment": "",
+      "command": "type",
+      "target": "id=firstName",
+      "targets": [
+        ["id=firstName", "id"],
+        ["name=fname", "name"],
+        ["css=#firstName", "css:finder"],
+        ["xpath=//input[@id='firstName']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Kim"
+    }, {
+      "id": "b7256f46-6e23-4eda-bed9-599e505242d3",
+      "comment": "",
+      "command": "type",
+      "target": "id=lastName",
+      "targets": [
+        ["id=lastName", "id"],
+        ["name=lname", "name"],
+        ["css=#lastName", "css:finder"],
+        ["xpath=//input[@id='lastName']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Vilfort"
+    }, {
+      "id": "bab8e2e2-7944-44e9-829a-8a3ed96dd6e3",
+      "comment": "",
+      "command": "click",
+      "target": "css=form:nth-child(2)",
+      "targets": [
+        ["css=form:nth-child(2)", "css:finder"],
+        ["xpath=//form[@action='https://sqengineer.com/practice-form-submission/']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form", "xpath:idRelative"],
+        ["xpath=//form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6240e69-35c6-466f-b9dd-dddcae6f6382",
+      "comment": "",
+      "command": "click",
+      "target": "id=otherGender",
+      "targets": [
+        ["id=otherGender", "id"],
+        ["css=#otherGender", "css:finder"],
+        ["xpath=//input[@id='otherGender']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/input[5]", "xpath:idRelative"],
+        ["xpath=//input[5]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c84a27a1-0a3b-4558-8e8d-c05cd3e49c67",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=emailID", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/input[6]", "xpath:idRelative"],
+        ["xpath=//input[6]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "10bd2bab-1e15-48f0-b144-98e1f6f1d262",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=emailID", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/input[6]", "xpath:idRelative"],
+        ["xpath=//input[6]", "xpath:position"]
+      ],
+      "value": "kim@brondby.bif"
+    }, {
+      "id": "4ca694b4-cc61-439a-8d17-9055d7de0c73",
+      "comment": "",
+      "command": "click",
+      "target": "id=selectBox",
+      "targets": [
+        ["id=selectBox", "id"],
+        ["css=#selectBox", "css:finder"],
+        ["xpath=//select[@id='selectBox']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "69843f6e-4279-496a-9694-f211f96ad521",
+      "comment": "",
+      "command": "select",
+      "target": "id=selectBox",
+      "targets": [],
+      "value": "label=Tokyo"
+    }, {
+      "id": "e0a767f1-56e5-4d1d-a156-37919b77bd16",
+      "comment": "",
+      "command": "click",
+      "target": "css=option:nth-child(5)",
+      "targets": [
+        ["css=option:nth-child(5)", "css:finder"],
+        ["xpath=//option[@value='Tokyo']", "xpath:attributes"],
+        ["xpath=//select[@id='selectBox']/option[5]", "xpath:idRelative"],
+        ["xpath=//option[5]", "xpath:position"],
+        ["xpath=//option[contains(.,'Tokyo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe516176-f92f-40b0-b370-ad37954b2454",
+      "comment": "",
+      "command": "storeText",
+      "target": " xpath=//*[@id=\"readText\"]",
+      "targets": [
+        ["css=b", "css:finder"],
+        ["xpath=//label[@id='readText']/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'Read this text and print the output')]", "xpath:innerText"]
+      ],
+      "value": "capturedText"
+    }, {
+      "id": "3535a037-98ae-4551-935c-647547840010",
+      "comment": "",
+      "command": "echo",
+      "target": "${capturedText}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "473c44da-adb4-47ac-96fe-9a7dea19f834",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(27)",
+      "targets": [
+        ["css=input:nth-child(27)", "css:finder"],
+        ["xpath=//input[@value='Submit']", "xpath:attributes"],
+        ["xpath=//article[@id='post-109']/div/form/input[7]", "xpath:idRelative"],
+        ["xpath=//input[7]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "b307052e-a23c-4967-9086-b12a237fa1de",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["735b1071-16df-49ba-9259-84b5328ac545"]
+  }],
+  "urls": ["https://sqengineer.com/"],
+  "plugins": []
+}
