@@ -25,7 +25,7 @@ We used the 64bit version on Windows.
 Unzip the downloaded file into a folder of your choosing.  
 Add the folder path to the system PATH variable, e.g.
 
-        C:\Program Files (x86)\selenium-drivers
+        C:\Program Files\selenium-drivers
 
 You may need to reboot the system.
 
