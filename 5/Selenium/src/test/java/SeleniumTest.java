@@ -169,7 +169,7 @@ public class SeleniumTest
         webDriver.get("https://www.youtube.com/results?search_query=cats");
         // Q&D wait for page load.
         System.out.println("Loading...");
-        WebDriverWait wait = new WebDriverWait(webDriver, 20);
+        WebDriverWait wait = new WebDriverWait(webDriver, 100);
         wait.until(webDriver -> ((JavascriptExecutor)webDriver).executeScript("return document.readyState").equals("complete"));
         System.out.println("...done!");
         var result = webDriver.findElements(By.xpath("//*[@id='thumbnail']"))
