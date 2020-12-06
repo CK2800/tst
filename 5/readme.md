@@ -14,7 +14,7 @@ The tests have been created using the [Firefox browser](https://www.mozilla.org/
 5. In the end, you should be able to enjoy 'Van Halen - Jump' by pressing the 'k' key.
 
 6. Now repeat step 2 and choose formTest.side.
-7. Observe that text is echo'ed as the 14th step.
+7. Observe that text is echo'ed as the 14th step in Selenium IDE.
 
 ### Selenium JAVA tests
 
@@ -25,7 +25,7 @@ We used the 64bit version on Windows.
 Unzip the downloaded file into a folder of your choosing.  
 Add the folder path to the system PATH variable, e.g.
 
-        C:\Program Files (x86)\selenium-drivers.
+        C:\Program Files (x86)\selenium-drivers
 
 You may need to reboot the system.
 
