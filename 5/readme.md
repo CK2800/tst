@@ -36,5 +36,37 @@ However, we do find this way a bit hackish, as it is reported to rely heavily on
 
 ### Cucumber JAVA tests:
 
-TBD  
-Also see extensions made to the project in assignment 3 -> file.....
+#### Cucumber tutorial
+
+[Cucumber tutorial](https://cucumber.io/docs/guides/10-minute-tutorial/) is completed in the assignment 5/Cucumber project. The Cucumber test uses the feature file, located in resources in the test folder. Step definitions are declared in the hellocucumber package. 
+
+To demo, just run the test suite.
+
+The tests are using Scenario Outline to test multiple parameters.
+
+#### Cucumber booking system extension
+
+The Booking system are located in assignment 3. 
+
+The Cucumber test uses the feature files, located in resources in the test folder.
+
+Step definitions are declared in the cucumber package.
+
+We discovered a problem with running the tests, as the booking system uses junit5 and cucumber-junit uses junit4. If the project imports junit 4, all the tests with jupiter (junit 5) will be ignored and vice versa.  
+
+The problem are solved with the junit-vintage-engine dependency.
+
+                <dependency>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                    <version>5.6.3</version>
+                </dependency>
+
+The cucumber tests cover create customer / employee tests.
+
+The tests are using Scenario Outline to test for an empty customer or employee to fail.
+
+To demo, follow the setup located in the booking systems README file and run the following command to run the testsuite. 
+
+                mvn verify
+                
