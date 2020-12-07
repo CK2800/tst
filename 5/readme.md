@@ -28,7 +28,8 @@ EITHER:
 
         C:\Program Files\selenium-drivers
 
-You may need to reboot the system.
+You may need to reboot the system.  
+
 OR:
 * Read the documentation [here](https://firefox-source-docs.mozilla.org/testing/geckodriver/Usage.html) to learn alternative ways of using the Gecko web driver.
 
