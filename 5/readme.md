@@ -46,7 +46,7 @@ The tests are using Scenario Outline to test multiple parameters.
 
 #### Cucumber booking system extension
 
-The Booking system are located in assignment 3. 
+The Booking system are located in [assignment 3](https://github.com/CK2800/tst/tree/master/3/test2020fall-BookingSystem). 
 
 The Cucumber test uses the feature files, located in resources in the test folder.
 
