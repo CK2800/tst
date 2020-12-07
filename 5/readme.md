@@ -23,11 +23,14 @@ Download the Mozilla Gecko driver v0.28.0 [here](https://github.com/mozilla/geck
 We used the 64bit version on Windows.
 
 Unzip the downloaded file into a folder of your choosing.  
-Add the folder path to the system PATH variable, e.g.
+EITHER:
+* Add the folder path to the system PATH variable, e.g.
 
         C:\Program Files\selenium-drivers
 
 You may need to reboot the system.
+OR:
+* Read the documentation [here](https://firefox-source-docs.mozilla.org/testing/geckodriver/Usage.html) to learn alternative ways of using the Gecko web driver.
 
 Now run the SeleniumTest.java.
 
