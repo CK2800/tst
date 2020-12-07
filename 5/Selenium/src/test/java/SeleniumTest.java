@@ -29,6 +29,10 @@ public class SeleniumTest
 {
     static String url = "https://sqengineer.com/practice-sites/practice-tables-selenium/";
     static WebDriver webDriver;
+    static
+    {
+        System.setProperty("webdriver.gecko.driver", "src/main/resources/webdrivers/geckodriver.exe");
+    }
 
     @BeforeAll
     public void init()

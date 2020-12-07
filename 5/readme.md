@@ -19,19 +19,11 @@ The tests have been created using the [Firefox browser](https://www.mozilla.org/
 ### Selenium JAVA tests
 
 How to demo:  
-Download the Mozilla Gecko driver v0.28.0 [here](https://github.com/mozilla/geckodriver/releases).  
-We used the 64bit version on Windows.
+Since the project includes the 64 bit version of the Mozilla Gecko driver v0.28.0, you may not need to do anything else than run the SeleniumTest.java.
 
-Unzip the downloaded file into a folder of your choosing.  
-EITHER:
-* Add the folder path to the system PATH variable, e.g.
+If you are on a 32 bit system, download the appropriate Mozilla Gecko driver [here](https://github.com/mozilla/geckodriver/releases).
 
-        C:\Program Files\selenium-drivers
-
-You may need to reboot the system.  
-
-OR:
-* Read the documentation [here](https://firefox-source-docs.mozilla.org/testing/geckodriver/Usage.html) to learn alternative ways of using the Gecko web driver.
+Unzip the downloaded file into the src/main/resources and name it geckodriver.exe.
 
 Now run the SeleniumTest.java.
 
@@ -42,7 +34,7 @@ However, we do find this way a bit hackish, as it is reported to rely heavily on
 
 #### Cucumber tutorial
 
-[Cucumber tutorial](https://cucumber.io/docs/guides/10-minute-tutorial/) is completed in the assignment 5/Cucumber project. The Cucumber test uses the feature file, located in resources in the test folder. Step definitions are declared in the hellocucumber package. 
+[Cucumber tutorial](https://cucumber.io/docs/guides/10-minute-tutorial/) is completed in the assignment 5/Cucumber project. The Cucumber test uses the feature file, located in resources in the test folder. Step definitions are declared in the hellocucumber package.
 
 To demo, just run the test suite.
 
@@ -50,13 +42,13 @@ The tests are using Scenario Outline to test multiple parameters.
 
 #### Cucumber booking system extension
 
-The Booking system are located in [assignment 3](https://github.com/CK2800/tst/tree/master/3/test2020fall-BookingSystem). 
+The Booking system are located in [assignment 3](https://github.com/CK2800/tst/tree/master/3/test2020fall-BookingSystem).
 
 The Cucumber test uses the feature files, located in resources in the test folder.
 
 Step definitions are declared in the cucumber package.
 
-We discovered a problem with running the tests, as the booking system uses junit5 and cucumber-junit uses junit4. If the project imports junit 4, all the tests with jupiter (junit 5) will be ignored and vice versa.  
+We discovered a problem with running the tests, as the booking system uses junit5 and cucumber-junit uses junit4. If the project imports junit 4, all the tests with jupiter (junit 5) will be ignored and vice versa.
 
 The problem are solved with the junit-vintage-engine dependency.
 
@@ -70,7 +62,7 @@ The cucumber tests cover create customer / employee tests.
 
 The tests are using Scenario Outline to test for an empty customer or employee to fail.
 
-To demo, follow the setup located in the booking systems README file and run the following command to run the testsuite. 
+To demo, follow the setup located in the booking systems README file and run the following command to run the testsuite.
 
                 mvn verify
-                
+
