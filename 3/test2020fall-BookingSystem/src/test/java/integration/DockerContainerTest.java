@@ -18,5 +18,6 @@ public class DockerContainerTest
     static
     {
         mysql = (MySQLContainer) new MySQLContainer(DockerImageName.parse("mysql")).withPassword(PASSWORD).withExposedPorts(PORT);
+        mysql.start();
     }
 }

@@ -8,6 +8,8 @@ import integration.DockerContainerTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.configuration.FluentConfiguration;
 import servicelayer.customer.CustomerService;
 import servicelayer.customer.CustomerServiceException;
 import servicelayer.customer.CustomerServiceImpl;
@@ -22,15 +24,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StepDefinitions extends DockerContainerTest {
 
+
+    static String url, db;
+
+    private static CustomerStorage customerStorage;
+    private static CustomerService customerService;
+    private static EmployeeStorage employeeStorage;
+    private static EmployeeService employeeService;
+
     private boolean actual;
-    String url = "jdbc:mysql://"+mysql.getHost()+":"+mysql.getFirstMappedPort()+"/";
-    String db = "DemoApplicationTest";
-    private CustomerStorage storage = new CustomerStorageImpl(url + db,"root", PASSWORD);
-    private CustomerService svc = new CustomerServiceImpl(storage);
-    private EmployeeStorage employeeStorage = new EmployeeStorageImpl(url + db, "root", PASSWORD);
-    private EmployeeService employeeService = new EmployeeServiceImpl(employeeStorage);
     private String firstName, lastName;
     private Date bday;
+
+    // Since cucumber has no @BeforeAll
+    static
+    {
+        url = "jdbc:mysql://"+mysql.getHost()+":"+mysql.getFirstMappedPort()+"/";
+        db = "DemoApplicationTest";
+        Flyway flyway = new Flyway(
+                new FluentConfiguration()
+                        .schemas(db)
+                        .defaultSchema(db)
+                        .createSchemas(true)
+                        .target("4")
+                        .dataSource(url, "root", PASSWORD)
+        );
+        flyway.migrate();
+
+        employeeStorage = new EmployeeStorageImpl(url+db, "root", PASSWORD);
+        customerStorage = new CustomerStorageImpl(url+db, "root", PASSWORD);
+        customerService = new CustomerServiceImpl(customerStorage);
+        employeeService = new EmployeeServiceImpl(employeeStorage);
+    }
 
     @Given("a customer {string} {string}")
     public void a_customer(String firstName, String lastName) {
@@ -44,7 +69,7 @@ public class StepDefinitions extends DockerContainerTest {
     @When("I say create customer")
     public void i_say_create_customer()  {
         try {
-            svc.createCustomer(firstName, lastName, bday);
+            customerService.createCustomer(firstName, lastName, bday);
             actual = true;
         } catch (CustomerServiceException e) {
             actual = false;
