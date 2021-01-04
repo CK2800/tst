@@ -18,6 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public int createCustomer(String firstName, String lastName, Date birthdate) throws CustomerServiceException {
+        // defensive
+        if ("".equals(firstName.strip()) || "".equals(lastName.strip()))
+            throw new CustomerServiceException("Names cannot be empty!");
         try {
             return customerStorage.createCustomer(new CustomerCreation(firstName, lastName, birthdate));
         } catch (SQLException throwables) {
