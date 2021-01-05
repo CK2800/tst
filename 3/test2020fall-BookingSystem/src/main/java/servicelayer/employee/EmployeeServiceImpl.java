@@ -21,6 +21,9 @@ public class EmployeeServiceImpl implements EmployeeService
 
     @Override
     public int createEmployee(String firstName, String lastName, Date birthdate) throws EmployeeServiceException {
+        // defensive
+        if("".equals(firstName.strip()) || "".equals(lastName.strip()))
+            throw new EmployeeServiceException("Names cannot be empty!");
         try {
             return employeeStorage.createEmployee(new EmployeeCreation(firstName, lastName,birthdate));
         } catch (SQLException throwables) {

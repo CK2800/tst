@@ -34,7 +34,7 @@ public class EmployeeStorageImpl implements EmployeeStorage
         {
             preparedStatement.setString(1, employeeToCreate.getFirstname());
             preparedStatement.setString(2, employeeToCreate.getLastname());
-            preparedStatement.setDate(3, (Date) employeeToCreate.getBirthdate());
+            preparedStatement.setDate(3,  new java.sql.Date(employeeToCreate.getBirthdate().getTime()));
             preparedStatement.executeUpdate();
 
             try(var resultSet = preparedStatement.getGeneratedKeys())
